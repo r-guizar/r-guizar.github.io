@@ -1,0 +1,23 @@
+[[main]]
+none = "none"
+
+[[main]]
+name = "Posts"
+pageRef = "posts"
+identifier = "05c2nmredI"
+weight = 10
+
+[[main]]
+pre = "github"
+url = "https://github.com/r-guizar"
+identifier = "IkviKKp6iw"
+weight = 20
+
+[[main]]
+pre = "linkedin"
+url = "https://www.linkedin.com/in/richard-guizar-2830072a3/"
+identifier = "j9E4kdPvEP"
+weight = 30
+
+[[footer]]
+none = "none"

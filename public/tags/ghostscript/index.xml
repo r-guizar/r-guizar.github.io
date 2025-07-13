@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Ghostscript on Richard&#39;s Blog</title>
+    <link>http://localhost:1313/tags/ghostscript/</link>
+    <description>Recent content in Ghostscript on Richard&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <copyright>© 2025 Richard Guizar</copyright>
+    <lastBuildDate>Fri, 27 Jun 2025 00:00:00 +0000</lastBuildDate><atom:link href="http://localhost:1313/tags/ghostscript/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Making Ghostscript CVE-2025-27835 PoC Usable</title>
+      <link>http://localhost:1313/posts/1752023247845-making-ghostscript-cve-2025-27835-poc-usable/</link>
+      <pubDate>Fri, 27 Jun 2025 00:00:00 +0000</pubDate>
+      
+      <guid>http://localhost:1313/posts/1752023247845-making-ghostscript-cve-2025-27835-poc-usable/</guid>
+      <description></description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:1313/posts/1752023247845-making-ghostscript-cve-2025-27835-poc-usable/featured.png" />
+    </item>
+    
+    <item>
+      <title>PoC Report of Ghostscript CVE-2025-27835</title>
+      <link>http://localhost:1313/posts/1750992676979-poc-report-of-ghostscript-cve-2025-27835/</link>
+      <pubDate>Sat, 10 May 2025 00:00:00 +0000</pubDate>
+      
+      <guid>http://localhost:1313/posts/1750992676979-poc-report-of-ghostscript-cve-2025-27835/</guid>
+      <description></description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:1313/posts/1750992676979-poc-report-of-ghostscript-cve-2025-27835/featured.webp" />
+    </item>
+    
+  </channel>
+</rss>

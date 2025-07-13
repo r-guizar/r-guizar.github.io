@@ -1,0 +1,23 @@
+disabled = false
+languageCode = "en"
+languageName = "English"
+weight = 1
+title = "Richard's Blog"
+
+[params]
+displayName = "EN"
+isoCode = "en"
+rtl = false
+dateFormat = "2 January 2006"
+description = "site desc."
+
+[[params.author.links]]
+github = "https://github.com/r-guizar"
+
+[[params.author.links]]
+linkedin = "https://www.linkedin.com/in/richard-guizar-2830072a3/"
+
+["params.author"]
+name = "Richard Guizar"
+headline = "pwn CTF player and exploit development enthusiast"
+bio = "CTF player and exploit development enthusiast"

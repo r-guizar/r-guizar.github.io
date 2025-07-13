@@ -1,0 +1,112 @@
+colorScheme = "congo"
+defaultAppearance = "dark"
+autoSwitchAppearance = true
+enableSearch = true
+enableCodeCopy = true
+replyByEmail = false
+disableImageOptimization = false
+disableImageOptimizationMD = false
+disableTextInHeader = false
+fingerprintAlgorithm = "sha512"
+giteaDefaultServer = "https://git.fsfe.org"
+forgejoDefaultServer = "https://v8.next.forgejo.org"
+firebase = { }
+fathomAnalytics = { }
+umamiAnalytics = { }
+selineAnalytics = { }
+buymeacoffee = { }
+verification = { }
+rssnext = { }
+advertisement = { }
+defaultBackgroundImage = "tn-cyberpunkwall2.png"
+highlightCurrentMenuArea = true
+
+[header]
+layout = "fixed-fill-blur"
+
+[footer]
+showMenu = true
+showCopyright = true
+showThemeAttribution = false
+showAppearanceSwitcher = true
+showScrollToTop = true
+
+[homepage]
+layout = "background"
+showRecent = true
+showRecentItems = 5
+showMoreLink = true
+showMoreLinkDest = "/posts/"
+cardView = false
+cardViewScreenWidth = false
+layoutBackgroundBlur = true
+disableHeroImageFilter = false
+homepageImage = "tn-cyberpunkwall2.png"
+
+[article]
+showDate = true
+showViews = false
+showLikes = false
+showDateOnlyInArticle = false
+showDateUpdated = false
+showAuthor = false
+showHero = true
+layoutBackgroundBlur = true
+layoutBackgroundHeaderSpace = false
+showBreadcrumbs = true
+showDraftLabel = true
+showEdit = false
+editAppendPath = true
+seriesOpened = false
+showHeadingAnchors = true
+showPagination = true
+invertPagination = false
+showReadingTime = false
+showTableOfContents = true
+showTaxonomies = true
+showCategoryOnly = false
+showAuthorsBadges = false
+showWordCount = false
+showZenMode = true
+heroStyle = "basic"
+
+[list]
+showHero = true
+layoutBackgroundBlur = true
+layoutBackgroundHeaderSpace = false
+showBreadcrumbs = true
+showSummary = true
+showViews = false
+showLikes = false
+showTableOfContents = true
+showCards = false
+orderByWeight = false
+groupByYear = false
+cardView = false
+cardViewScreenWidth = true
+constrainItemsWidth = false
+heroStyle = "thumbAndBackground"
+
+[sitemap]
+excludedKinds = [ "taxonomy", "term" ]
+
+[taxonomy]
+showTermCount = true
+showHero = true
+showBreadcrumbs = true
+showViews = false
+showLikes = false
+showTableOfContents = false
+cardView = true
+heroStyle = "thumbAndBackground"
+
+[term]
+showHero = true
+showBreadcrumbs = true
+showViews = false
+showLikes = false
+showTableOfContents = true
+groupByYear = false
+cardView = false
+cardViewScreenWidth = false
+heroStyle = "thumbAndBackground"
