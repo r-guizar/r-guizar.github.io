@@ -216,6 +216,9 @@ As a final note, leaking fsbase is acutally not a very good thing to do for a ch
 The challenge files can be found here under /pwn/clue:
 {{< github repo="UMassCybersecurity/UMassCTF-2025-Release" showThumbnail=true >}}
 
+and here:
+{{< github repo="r-guizar/UMass_CTF_2025_Clue" showThumbnail=true >}}
+
 ## Exploit Code
 
 ```python
