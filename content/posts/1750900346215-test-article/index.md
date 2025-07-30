@@ -2,7 +2,7 @@
 title: "LACTF 2025 minecraft Writeup"
 date: 2025-02-09
 draft: false
-description: "a description"
+description: "LACTF 2025 minecraft Writeup"
 tags: ["ctf","pwn"]
 ---
 This challenge comes from LACTF's /pwn/minecraft challenge in 2025. There are many different solutions to this challenge including FSOP but I stuck with just ROP and stack pivoting.

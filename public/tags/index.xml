@@ -20,21 +20,31 @@
     </item>
     
     <item>
-      <title>Ctf</title>
-      <link>http://localhost:1313/tags/ctf/</link>
-      <pubDate>Sun, 09 Feb 2025 00:00:00 +0000</pubDate>
+      <title>Pwn</title>
+      <link>http://localhost:1313/tags/pwn/</link>
+      <pubDate>Sun, 20 Apr 2025 00:00:00 +0000</pubDate>
       
-      <guid>http://localhost:1313/tags/ctf/</guid>
+      <guid>http://localhost:1313/tags/pwn/</guid>
       <description></description>
       
     </item>
     
     <item>
-      <title>Pwn</title>
-      <link>http://localhost:1313/tags/pwn/</link>
+      <title>UMassCTF</title>
+      <link>http://localhost:1313/tags/umassctf/</link>
+      <pubDate>Sun, 20 Apr 2025 00:00:00 +0000</pubDate>
+      
+      <guid>http://localhost:1313/tags/umassctf/</guid>
+      <description></description>
+      
+    </item>
+    
+    <item>
+      <title>Ctf</title>
+      <link>http://localhost:1313/tags/ctf/</link>
       <pubDate>Sun, 09 Feb 2025 00:00:00 +0000</pubDate>
       
-      <guid>http://localhost:1313/tags/pwn/</guid>
+      <guid>http://localhost:1313/tags/ctf/</guid>
       <description></description>
       
     </item>

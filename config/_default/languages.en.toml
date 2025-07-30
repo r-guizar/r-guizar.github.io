@@ -9,7 +9,7 @@ displayName = "EN"
 isoCode = "en"
 rtl = false
 dateFormat = "2 January 2006"
-description = "site desc."
+description = "Richard's Blog"
 
 [[params.author.links]]
 github = "https://github.com/r-guizar"

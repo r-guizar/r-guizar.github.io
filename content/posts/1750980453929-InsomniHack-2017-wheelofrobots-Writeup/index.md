@@ -2,7 +2,7 @@
 title: "InsomniHack 2017 wheelofrobots Writeup"
 date: 2025-01-10
 draft: false
-description: "a description"
+description: "InsomniHack 2017 wheelofrobots Writeup"
 tags: ["ctf", "pwn"]
 ---
 Wheelofrobots is a pwn challenge in InsomniHack’s 2017 CTF. This challenge involved adding, removing, and changing names of 6 different robots and spinning a wheel in which the program then exits.
